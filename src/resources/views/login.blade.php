@@ -1,4 +1,4 @@
-@extends('layouts.loginHeader')
+@extends('layouts.header')
     
 @section('css')
     <link 
@@ -37,7 +37,7 @@
 
         <div class="login-register">
             <p>アカウントをお持ちでない方はこちらから</p>
-            <a href="" class="login-register__link">
+            <a href="" class="register__link">
                 会員登録
             </a>
         </div>
