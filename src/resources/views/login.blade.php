@@ -10,14 +10,15 @@
 @section('content')
     <div class="login">
         <span class="login__title">ログイン</span>
-        <form class="login-form" action="" method="POST">
+        
+        <form class="login-form" action="/login" method="POST">
             @csrf
             <div class="login-form__item">
                 <input 
                     type="email" 
                     class="login-form__item-input"
                     name="email"
-                    value="メールアドレス"
+                    value="{{old('email','メールアドレス')}}"
                 >
             </div>
             <div class="login-form__item">

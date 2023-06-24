@@ -10,4 +10,12 @@ class RegisterController extends Controller
     {
         return view('register');
     }
+
+    public function store(Request $request)
+    {
+        
+        $user=[];
+        User::create($user);
+        return view('login');
+    }
 }

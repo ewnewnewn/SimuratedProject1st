@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-
+use App\Http\Controllers\IndexController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,5 +15,10 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-Route::GET('/login',[LoginController::class,'login']);
 Route::GET('/register',[RegisterController::class,'register']);
+Route::POST('/register',[RegisterController::class,'store']);
+Route::GET('/login',[LoginController::class,'login']);
+Route::POST('/logout',[LoginController::class,'logout']);
+
+Route::GET('/',[IndexController::class,'index']);
+
