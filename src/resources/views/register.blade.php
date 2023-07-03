@@ -1,4 +1,4 @@
-@extends('layouts.header')
+@extends('layouts.app')
     
 @section('css')
     <link 

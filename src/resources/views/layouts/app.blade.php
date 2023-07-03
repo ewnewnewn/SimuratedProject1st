@@ -22,7 +22,10 @@
                         <li class="header-nav__item">
                             <a href="/" class="header-nav__link">ホーム</a>
                             <a href="/" class="header-nav__link">日付一覧</a>
-                            <a href="/" class="header-nav__link">ログアウト</a>
+                            <form action="/logout" class="form" method="post" >
+                                @csrf
+                                <button class="header-nav__link">ログアウト</button>
+                            </form>
                         </li>
                     </ul>
                 </nav>

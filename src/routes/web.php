@@ -15,10 +15,11 @@ use App\Http\Controllers\IndexController;
 |
 */
 
-Route::GET('/register',[RegisterController::class,'register']);
-Route::POST('/register',[RegisterController::class,'store']);
-Route::GET('/login',[LoginController::class,'login']);
-Route::POST('/logout',[LoginController::class,'logout']);
+Route::get('/register',[RegisterController::class,'register']);
+Route::post('/register',[RegisterController::class,'store']);
+Route::get('/login',[LoginController::class,'login']);
+Route::post('/logout',[LoginController::class,'logout']);
 
-Route::GET('/',[IndexController::class,'index']);
-
+Route::middleware('auth')->group(function(){
+    Route::get('/',[IndexController::class,'index']);
+});
