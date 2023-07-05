@@ -38,7 +38,7 @@
 
         <div class="login-register">
             <p>アカウントをお持ちでない方はこちらから</p>
-            <a href="" class="register__link">
+            <a href="/register" class="register__link">
                 会員登録
             </a>
         </div>

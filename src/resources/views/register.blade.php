@@ -53,7 +53,7 @@
 
         <div class="login-register">
             <p>アカウントをお持ちの方はこちらから</p>
-            <a href="" class="login__link">
+            <a href="/login" class="login__link">
                 ログイン
             </a>
         </div>
