@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AttendanceController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,5 +28,5 @@ Route::middleware('auth')->group(function(){
     Route::get('/',[AuthController::class,'index']);
 });
 Route::middleware('auth')->group(function(){
-    Route::get('/attendance',[AuthController::class,'index']);
+    Route::get('/attendance',[AttendanceController::class,'attendance']);
 });

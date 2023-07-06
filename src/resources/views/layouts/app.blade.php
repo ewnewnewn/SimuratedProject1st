@@ -25,7 +25,7 @@
                                 @csrf
                                 <button>ホーム</button>
                             </form>
-                            <form class="header-nav__form" method="GET" action="/">
+                            <form class="header-nav__form" method="GET" action="/attendance">
                                 @csrf
                                 <button>日付一覧</button>
                             </form>
