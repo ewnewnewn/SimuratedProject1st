@@ -18,13 +18,24 @@
             <div class="header__title">
                 <a href="/" class="header__logo">Atte</a>
                 <nav>
+                    @if(Auth::check())
                     <ul class="header-nav">
                         <li class="header-nav__item">
-                            <a href="/" class="header-nav__link">ホーム</a>
-                            <a href="/" class="header-nav__link">日付一覧</a>
-                            <a href="/" class="header-nav__link">ログアウト</a>
+                            <form class="header-nav__form" method="GET" action="/">
+                                @csrf
+                                <button>ホーム</button>
+                            </form>
+                            <form class="header-nav__form" method="GET" action="/">
+                                @csrf
+                                <button>日付一覧</button>
+                            </form>
+                            <form class="header-nav__form" method="POST" action="/logout">
+                                @csrf
+                                <button>ログアウト</button>
+                            </form>
                         </li>
                     </ul>
+                    @endif
                 </nav>
             </div>
         </div>

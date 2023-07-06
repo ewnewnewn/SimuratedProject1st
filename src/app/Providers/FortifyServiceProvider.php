@@ -26,16 +26,16 @@ class FortifyServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot()
     {
         Fortify::createUsersUsing(CreateNewUser::class);
 
         Fortify::registerView(function () {
-            return view('register');
+            return view('auth.register');
         });
 
         Fortify::loginView(function () {
-            return view('login');
+            return view('auth.login');
         });
 
         RateLimiter::for('login', function (Request $request) {

@@ -8,16 +8,18 @@
 @endsection
 
 @section('content')
+
     <div class="register">
         <span class="register__title">会員登録</span>
-        <form class="register-form" action="/register" method="POST">
+
+        <form class="form" action="/register" method="POST">
             @csrf
             <div class="register-form__item">
                 <input 
-                    type="名前" 
+                    type="text" 
                     class="register-form__item-input"
                     name="name"
-                    value="{{ old('name','名前')}}"
+                    value="{{ old('name')}}"
                 >
             </div>
             <div class="register-form__item">
@@ -25,23 +27,21 @@
                     type="email" 
                     class="register-form__item-input"
                     name="email"
-                    value="{{old('email','メールアドレス')}}"
+                    value="{{old('email')}}"
                 >
             </div>
             <div class="register-form__item">
                 <input 
-                    type="text" 
-                    class="login-form__item-input"
+                    type="password" 
+                    class="register-form__item-input"
                     name="password"
-                    value="{{old('password','パスワード')}}"
                 >
             </div>
             <div class="register-form__item">
                 <input 
-                    type="text" 
+                    type="password" 
                     class="register-form__item-input"
                     name="password_confirmation"
-                    value="確認パスワード"
                 >
             </div>
             <div class="register-form__button">
@@ -57,5 +57,6 @@
                 ログイン
             </a>
         </div>
+
     </div>
 @endsection
