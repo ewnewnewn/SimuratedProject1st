@@ -13,12 +13,12 @@
             <p>{{ Auth::user()->name }} さん、お疲れ様です！</p>
         </div>
         <div class="works">
-            <form action="" class="works-start" method="POST">
+            <form action="/attendance/workstart" class="work-start" method="POST">
                 @csrf
                 <button class="work-start__button">勤務開始</button>
             </form>
             
-            <form action="" class="work-finish" method="POST">
+            <form action="/attendance/workend" class="work-finish" method="POST">
                 @csrf
                 <button class="works-start__button">勤務終了</button>
             </form>
