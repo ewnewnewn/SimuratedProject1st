@@ -3,46 +3,52 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\work;
-use App\Models\recess;
+use App\Models\Work;
 use Carbon\Carbon;
 
 class AttendanceController extends Controller
 {
     public function attendance()
     {
-        return view('date');
+        view('date');
     }
 
-    public function start(Request $request)
+    public function workStart(Request $request)
     {
         $user=$request->user();
 
         //直近の勤務レコードを取得
-        $latestAttendance=work::where('user_id',$user->id)
-            ->orderByDesc('start_time')->first();
+        $latestAttendance=work::where('user_id',$user->id)->orderByDesc('start_time')->first();
 
         //現在の日時と日付を取得
-        $currentDateTime=Carbon::now();
-        $currentDate=$currentDateTime->toDateString();
+        $currentDate = Carbon::today()->toDateString(); 
 
-        //直近の勤務レコードが存在し、同じ日の場合は更新しない
-        if(!$latestAttendance || Carbon::parse($latestAttendance->start_time)->toDateString() !== $currentDate)
-        {
-            //勤務開始のレコード作成
-            $attendance=work::updateOrCreate(
+        if (!$latestAttendance ||$latestAttendance->start_time->toDateString() !== $currentDate){
+            //直近の勤務レコードが存在していない、または、開始時刻が現在の日付と一致しない時
+            //レコード作成
+            $attendance = work::updateOrCreate(
                 ['user_id'=>$user->id],
                 ['start_time'=>now()]
             );
-            return view('stamp');
-        }
-        else{
-            return('失敗');
-        }
 
+            return view('stamp');
+
+        }elseif($latestAttendance->end_time){
+
+            //最新レコードにend_timeが格納されている場合、新しいレコードを作成
+            $attendance = work::create([
+                'user_id' => $user->id,
+                'start_time'=>now()
+            ]);
+
+            return view('stamp');
+
+        }else{
+            return '失敗';
+        }
     }
 
-    public function end(Request $request)
+    public function workEnd(Request $request)
     {
         $user = $request->user();
         

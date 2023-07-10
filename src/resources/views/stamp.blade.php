@@ -18,21 +18,21 @@
                 <button class="work-start__button">勤務開始</button>
             </form>
             
-            <form action="/attendance/workend" class="work-finish" method="POST">
+            <form action="/attendance/workend" class="work-end" method="POST">
                 @csrf
-                <button class="works-start__button">勤務終了</button>
+                <button class="works-finish__button">勤務終了</button>
             </form>
         </div>
 
-        <div class="breakings">
-            <form action="" class="break-start" method="POST">
+        <div class="recesses">
+            <form action="/attendance/recessstart" class="recess-start" method="POST">
                 @csrf
-                <button class="works-start__button">休憩開始</button>
+                <button class="recesses-start__button">休憩開始</button>
             </form>
             
-            <form action="" class="break-finish" method="POST">
+            <form action="/attendance/recessend" class="recess-end" method="POST">
                 @csrf
-                <button class="works-start__button">休憩終了</button>
+                <button class="recesses-end__button">休憩終了</button>
             </form>
 
         </div>
