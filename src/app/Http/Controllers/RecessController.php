@@ -17,7 +17,7 @@ class RecessController extends Controller
             'start_time'=>now()
         ]);
 
-        return view('stamp');
+        return redirect('/');
 
     }
     
@@ -30,7 +30,7 @@ class RecessController extends Controller
         $recess->end_time= now();
         $recess->save();
 
-        return view('stamp');
+        return redirect('/');
 
     }
 

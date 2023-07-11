@@ -25,14 +25,16 @@ Route::get('/login',[LoginController::class,'login']);
 Route::post('/logout',[LoginController::class,'logout']);
 */
 
+
 Route::middleware('auth')->group(function(){
     Route::get('/',[AuthController::class,'index']);
 });
+
 Route::middleware('auth')->group(function(){
-    Route::get('/attendance',[AttendanceController::class,'attendance']);
+    Route::get('/attendance',[AuthController::class,'attendance']);
 });
 
-Route::post('/attendance/workstart',[AttendanceController::class,'workStart']);
-Route::post('/attendance/workend',[AttendanceController::class,'workEnd']);
-Route::post('/attendance/recessstart',[RecessController::class,'recessStart']);
-Route::post('/attendance/recessend',[RecessController::class,'recessEnd']);
+Route::post('/workstart',[AttendanceController::class,'workStart']);
+Route::post('/workend',[AttendanceController::class,'workEnd']);
+Route::post('/recessstart',[RecessController::class,'recessStart']);
+Route::post('/recessend',[RecessController::class,'recessEnd']);

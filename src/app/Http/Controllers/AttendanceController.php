@@ -8,40 +8,38 @@ use Carbon\Carbon;
 
 class AttendanceController extends Controller
 {
-    public function attendance()
-    {
-        view('date');
-    }
 
     public function workStart(Request $request)
     {
         $user=$request->user();
 
         //直近の勤務レコードを取得
-        $latestAttendance=work::where('user_id',$user->id)->orderByDesc('start_time')->first();
+        $latestAttendance=Work::where('user_id',$user->id)->orderByDesc('start_time')->first();
 
         //現在の日時と日付を取得
         $currentDate = Carbon::today()->toDateString(); 
 
-        if (!$latestAttendance ||$latestAttendance->start_time->toDateString() !== $currentDate){
+        if (!$latestAttendance ||
+            $latestAttendance->start_time->toDateString() !== $currentDate){
             //直近の勤務レコードが存在していない、または、開始時刻が現在の日付と一致しない時
             //レコード作成
+            
             $attendance = work::updateOrCreate(
                 ['user_id'=>$user->id],
                 ['start_time'=>now()]
             );
 
-            return view('stamp');
+            return redirect('/');
 
         }elseif($latestAttendance->end_time){
 
             //最新レコードにend_timeが格納されている場合、新しいレコードを作成
-            $attendance = work::create([
+            $attendance = Work::create([
                 'user_id' => $user->id,
                 'start_time'=>now()
             ]);
 
-            return view('stamp');
+            return redirect('/');
 
         }else{
             return '失敗';
@@ -57,7 +55,7 @@ class AttendanceController extends Controller
         $attendance->end_time= now();
         $attendance->save();
 
-        return view('stamp');
+        return redirect('/');
 
     }
 
