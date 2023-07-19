@@ -8,6 +8,21 @@
 @endsection
 
 @section('content')
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                <li>{{ $errors->first('username') }}</li> 
+                <!-- emailフィールドのエラーメッセージを表示 -->
+                <li>{{ $errors->first('email') }}</li> 
+                <!-- passwordフィールドのエラーメッセージを表示 -->
+                <li>{{ $errors->first('password') }}</li> 
+            </ul>
+        </div>
+    @endif 
+
 
     <div class="register">
         <span class="register__title">会員登録</span>

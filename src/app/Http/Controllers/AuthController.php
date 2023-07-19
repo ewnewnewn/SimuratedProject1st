@@ -32,19 +32,23 @@ class AuthController extends Controller
             $latestAttendance && 
             $latestAttendance->end_time === null;
 
+        //勤務開始状態である　かつ
         //直近の休憩レコードが存在しない　または
         //end_timeがnullでない
         //の場合は休憩開始ボタンをアクティブにする
         $recessStartActive =
-            !$latestRecess ||
-            $latestRecess->end_time !== null;
+            $workEndActive &&
+            (!$latestRecess ||
+            $latestRecess->end_time !== null);
         
+        //勤務開始状態である　かつ
         //直近の休憩レコードが存在する　かつ
         //end_timeがnullでない
         //の場合は休憩終了ボタンをアクティブにする
         $recessEndActive =
-            $latestRecess &&
-            $latestRecess->end_time === null;
+            $workEndActive &&
+            ($latestRecess &&
+            $latestRecess->end_time === null );
 
         return view('stamp', 
             compact('workStartActive', 'workEndActive','recessStartActive','recessEndActive')
@@ -55,7 +59,7 @@ class AuthController extends Controller
     public function attendance()
 
     {
-        view('date');
+        return view('date');
     }
 
 }
