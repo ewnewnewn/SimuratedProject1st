@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use App\Models\Work;
 use App\Models\Recess;
 
@@ -59,7 +61,32 @@ class AuthController extends Controller
     public function attendance()
 
     {
-        return view('date');
+        $date = Carbon::today()->toDateString();
+
+        $works= Work::with('user')
+            ->whereDate('start_time',$date)
+            ->paginate(5,['user_id','start_time','end_time']);
+
+
+        // working_timeを計算して追加する
+        $works->getCollection()->transform(function ($work) {
+            $start = Carbon::parse($work->start_time);
+            $end = Carbon::parse($work->end_time);
+            $work->working_time = $start->diff($end)->format('%H:%I:%S');
+
+
+            $breaking_time = Recess::where('user_id', $work->user_id)
+                ->whereBetween('start_time', [$work->start_time, $work->end_time])
+                ->whereBetween('end_time', [$work->start_time, $work->end_time])
+                ->sum(DB::raw('TIME_TO_SEC(TIMEDIFF(end_time, start_time))'));
+
+            $work->breaking_time = gmdate('H:i:s', $breaking_time);
+
+            return $work;
+
+        });
+        
+        return view('dateInfo',compact('date','works'));
     }
 
 }

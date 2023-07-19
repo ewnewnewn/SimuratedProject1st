@@ -29,26 +29,28 @@
                 <th>休憩時間</th>
                 <th>勤務時間</th>
             </tr>
-            @foreach($contacts as $contact)
+            @foreach($works as $work)
             <tr>
                 <td>
-                    名前
+                    {{ $work->user->name }}
                 </td>
                 <td>
-                    勤務開始時間
+                    {{ \Carbon\Carbon::parse($work->start_time)->format('H:i:s') }}
                 </td>
                 <td>
-                    勤務終了時間
+                    {{ \Carbon\Carbon::parse($work->end_time)->format('H:i:s') }}
                 </td>
                 <td>
-                    休憩時間合算
+                    {{ \Carbon\Carbon::parse($work->breaking_time)->format('H:i:s') }}
                 </td>
                 <td>
-                    勤務時間合算
+                    {{ \Carbon\Carbon::parse($work->working_time)->format('H:i:s') }}
                 </td>
             </tr>
             @endforeach
         </table>
     </div>
+
+    {{ $works->links() }}
 
 @endsection

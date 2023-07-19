@@ -41,4 +41,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /** 
+     * 
+     * 
+    */
+    public function recesses()
+    {
+        return $this->hasMany(Recess::class,'user_id','id');
+    }
+
+    public function works()
+    {
+        return $this->hasMany(Work::class,'user_id','id');
+    }
 }
