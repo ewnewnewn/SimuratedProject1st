@@ -9,15 +9,22 @@
 
 @section('content')
     <div class="search-date">
-        <a href="" class="search-date__back">
-            <
-        </a>
+        <form action="{{ route('dateback') }}" class="search-date__back" method="POST">
+            @csrf
+            <button class="search-date__back--button" type="submit">
+                <
+            </button>
+        </form>
         <span class="current-date">
-            今日の日付
+            {{ $date }}
         </span>
-        <a href="" class="search-date__forward">
-            >
-        </a>
+        <form action="{{ route('dateforward') }}" class="search-date__forward" method="POST">
+            @csrf
+            <button class="search-date__forward--button" type="submit">
+                >
+            </button>
+        </form>
+
     </div>
 
     <div class="search-result">

@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function(){
 
 Route::middleware('auth')->group(function(){
     Route::get('/attendance',[AuthController::class,'attendance']);
+    Route::post('/attendance/dateback',[AuthController::class,'dateBack'])->name('dateback');;
+    Route::post('/attendance/dateforward',[AuthController::class,'dateForward'])->name('dateforward');
 });
 
 Route::post('/workstart',[AttendanceController::class,'workStart']);

@@ -20,22 +20,15 @@ class AttendanceController extends Controller
         $currentDate = Carbon::today()->toDateString(); 
 
         if (!$latestAttendance ||
+            $latestAttendance->end_time ||
             $latestAttendance->start_time->toDateString() !== $currentDate){
-            //直近の勤務レコードが存在していない、または、開始時刻が現在の日付と一致しない時
+            //直近の勤務レコードが存在していない　または
+            //最新レコードにend_timeが格納されている場合 または
+            //開始時刻が現在の日付と一致しない時
             //レコード作成
             
-            $attendance = work::updateOrCreate(
-                ['user_id'=>$user->id],
-                ['start_time'=>now()]
-            );
-
-            return redirect('/');
-
-        }elseif($latestAttendance->end_time){
-
-            //最新レコードにend_timeが格納されている場合、新しいレコードを作成
-            $attendance = Work::create([
-                'user_id' => $user->id,
+            $attendance = work::create([
+                'user_id'=>$user->id,
                 'start_time'=>now()
             ]);
 

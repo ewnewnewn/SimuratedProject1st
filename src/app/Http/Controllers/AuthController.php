@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\Work;
@@ -58,23 +59,26 @@ class AuthController extends Controller
 
     }
 
-    public function attendance()
+    public function attendance(Request $request)
 
     {
-        $date = Carbon::today()->toDateString();
+        $date = $request->session()->get('date', Carbon::today()->toDateString());
 
         $works= Work::with('user')
             ->whereDate('start_time',$date)
             ->paginate(5,['user_id','start_time','end_time']);
 
 
-        // working_timeを計算して追加する
-        $works->getCollection()->transform(function ($work) {
+            //worksコレクションに就業時間合計と休憩時間合計を追加する
+            $works->getCollection()->transform(function ($work) {
+
+            // 就業時間合計を計算して追加する
             $start = Carbon::parse($work->start_time);
             $end = Carbon::parse($work->end_time);
+
             $work->working_time = $start->diff($end)->format('%H:%I:%S');
 
-
+            //休憩時間合計を計算して追加する
             $breaking_time = Recess::where('user_id', $work->user_id)
                 ->whereBetween('start_time', [$work->start_time, $work->end_time])
                 ->whereBetween('end_time', [$work->start_time, $work->end_time])
@@ -87,6 +91,21 @@ class AuthController extends Controller
         });
         
         return view('dateInfo',compact('date','works'));
+    }
+    public function dateBack(Request $request)
+    {
+        $date = Session::get('date', Carbon::today()->toDateString());
+        $newDate = Carbon::parse($date)->subDay()->toDateString();
+        Session::put('date', $newDate);
+        return redirect('/attendance');
+    }
+
+    public function dateForward(Request $request)
+    {
+        $date = Session::get('date', Carbon::today()->toDateString());
+        $newDate = Carbon::parse($date)->addDay()->toDateString();
+        Session::put('date', $newDate);
+        return redirect('/attendance');
     }
 
 }
