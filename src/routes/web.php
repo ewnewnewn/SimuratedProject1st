@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\RecessController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,6 @@ Route::post('/workstart',[AttendanceController::class,'workStart']);
 Route::post('/workend',[AttendanceController::class,'workEnd']);
 Route::post('/recessstart',[RecessController::class,'recessStart']);
 Route::post('/recessend',[RecessController::class,'recessEnd']);
+
+Route::get('/users', [UserController::class, 'showUserList'])->name('userlist');
+Route::get('/users/{id}/works', [UserController::class, 'showUserWorksList'])->name('userworks');
