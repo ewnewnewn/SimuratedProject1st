@@ -8,7 +8,7 @@
     <title>Atte</title>
 
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/common.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @yield('css')
 </head>
 
@@ -17,6 +17,8 @@
         <div class="header__inner">
             <div class="header__title">
                 <a href="/" class="header__logo">Atte</a>
+            </div>
+            <div class="header__content">
                 <nav>
                     @if(Auth::check())
                     <ul class="header-nav">
